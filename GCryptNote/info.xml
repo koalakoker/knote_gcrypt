@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension>
+  <dict>
+    <key>version</key>
+    <string>0.1</string>
+    <key>name</key>
+    <string>Cript</string>
+    <key>author</key>
+    <string>Gianluigi Forte</string>
+    <key>email</key>
+    <string>koala@koalakoker.com</string>
+    <key>website</key>
+    <string>http://www.koalakoker.com</string>
+    <key>description</key>
+    <string>Cript and password extension</string>
+  </dict>
+</extension>
