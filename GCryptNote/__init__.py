@@ -26,19 +26,21 @@ class debugView:
      
     def __init__(self,path):
          
-        self.gladefile = path + "/debugView.glade"
-        self.builder = gtk.Builder()
-        self.builder.add_from_file(self.gladefile)
-        self.builder.connect_signals(self)
-         
+        self.gladefile = path + "/debugViewXML.glade"
+        self.wTree = gtk.glade.XML(self.gladefile) 
+        dic = {"on_CloseBtn_clicked" : self.on_CloseBtn_clicked}
+        self.wTree.signal_autoconnect(dic)
+
     def debugTxt(self, iStr):
-        obj = self.builder.get_object("debugDialog")
+        #obj = self.builder.get_object("debugDialog")
+        obj = self.wTree.get_widget("debugDialog")
         obj.show()
-        txtEdit = self.builder.get_object("debugTxt")
+        #txtEdit = self.builder.get_object("debugTxt")
+        txtEdit = self.wTree.get_widget("debugTxt")
         txtEdit.get_buffer().set_text(iStr)
         
     def on_CloseBtn_clicked(self,sender):
-        obj = self.builder.get_object("debugDialog")
+        obj = self.wTree.get_widget("debugDialog")
         obj.destroy()
 
 class Extension (extension.Extension):

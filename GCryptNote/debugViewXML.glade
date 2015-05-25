@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<interface>
-  <requires lib="gtk+" version="2.24"/>
+<glade-interface>
+  <!-- interface-requires gtk+ 2.24 -->
   <!-- interface-naming-policy project-wide -->
-  <object class="GtkDialog" id="debugDialog">
+  <widget class="GtkDialog" id="debugDialog">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
     <property name="title" translatable="yes">debug view</property>
@@ -11,31 +11,31 @@
     <property name="default_height">480</property>
     <property name="type_hint">dialog</property>
     <child internal-child="vbox">
-      <object class="GtkVBox" id="dialog-vbox1">
+      <widget class="GtkVBox" id="dialog-vbox1">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="spacing">2</property>
         <child internal-child="action_area">
-          <object class="GtkHButtonBox" id="dialog-action_area1">
+          <widget class="GtkHButtonBox" id="dialog-action_area1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="layout_style">end</property>
             <child>
-              <object class="GtkButton" id="CloseBtn">
+              <widget class="GtkButton" id="CloseBtn">
                 <property name="label" translatable="yes">Close</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="use_action_appearance">False</property>
-                <signal name="clicked" handler="on_CloseBtn_clicked" swapped="no"/>
-              </object>
+                <signal name="clicked" handler="on_CloseBtn_clicked"/>
+              </widget>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">False</property>
                 <property name="position">0</property>
               </packing>
             </child>
-          </object>
+          </widget>
           <packing>
             <property name="expand">True</property>
             <property name="fill">True</property>
@@ -43,24 +43,18 @@
           </packing>
         </child>
         <child>
-          <object class="GtkTextView" id="debugTxt">
+          <widget class="GtkTextView" id="debugTxt">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="buffer">textbuffer1</property>
-          </object>
+            <property name="text" translatable="yes">Testo di partenza</property>
+          </widget>
           <packing>
             <property name="expand">True</property>
             <property name="fill">True</property>
             <property name="position">1</property>
           </packing>
         </child>
-      </object>
+      </widget>
     </child>
-    <action-widgets>
-      <action-widget response="0">CloseBtn</action-widget>
-    </action-widgets>
-  </object>
-  <object class="GtkTextBuffer" id="textbuffer1">
-    <property name="text" translatable="yes">Testo di partenza</property>
-  </object>
-</interface>
+  </widget>
+</glade-interface>
