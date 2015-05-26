@@ -92,15 +92,14 @@ class Extension (extension.Extension):
 #         Proviamo a scrivere qualcosa su più righe
 #         Solo per vedere come funziona!!!!
 #         """)
-        
-        sys.path.append(self.get_base_dir(False))
 
-        import Cript
+        sys.path.append(self.get_base_dir(False))
+        import GCrypt
         
         key = b'dfdfjdnjnjvnfkjn vnfj vjfk d nvkfd j'
         plaintext = b'jfghksdjfghksdjfgksdhgljdkghjh fgh fhg jfhgdkjfkjg hkdfjg hkdfj ghkdf ghfdjk ghfdjkg hkdfjg h'
-        testoCriptato, seme, orLen = Cript.criptIt(plaintext, key)
-        testoDecriptato = Cript.deCriptIt(testoCriptato, key, seme, orLen)
+        testoCriptato, seme, orLen = GCrypt.criptIt(plaintext, key)
+        testoDecriptato = GCrypt.deCriptIt(testoCriptato, key, seme, orLen)
         
 #         print (plaintext)
 #         Cript.printHex(plaintext)
@@ -115,4 +114,4 @@ class Extension (extension.Extension):
 #         if (plaintext != testoDecriptato):
 #             print ("Errore")
         
-        self.hwg.debugTxt(plaintext)
+        self.hwg.debugTxt(testoCriptato + testoDecriptato)
