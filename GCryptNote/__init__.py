@@ -45,6 +45,8 @@ class debugView:
 
 class Extension (extension.Extension):
     
+    lPath = ""
+    
     def __init__(self, app):
         """Initialize extension"""
         
@@ -77,7 +79,8 @@ class Extension (extension.Extension):
             </ui>
             """)
         
-        self.hwg = debugView(self.get_base_dir(False))
+        self.lPath = self.get_base_dir(False)
+        self.hwg = debugView(self.lPath)
         
         #Gigi
         window.get_notebook()
@@ -93,25 +96,31 @@ class Extension (extension.Extension):
 #         Solo per vedere come funziona!!!!
 #         """)
 
-        sys.path.append(self.get_base_dir(False))
-        import GCrypt
+        sys.path.append(self.lPath)
         
-        key = b'dfdfjdnjnjvnfkjn vnfj vjfk d nvkfd j'
-        plaintext = b'jfghksdjfghksdjfgksdhgljdkghjh fgh fhg jfhgdkjfkjg hkdfjg hkdfj ghkdf ghfdjk ghfdjkg hkdfjg h'
-        testoCriptato, seme, orLen = GCrypt.criptIt(plaintext, key)
-        testoDecriptato = GCrypt.deCriptIt(testoCriptato, key, seme, orLen)
+        from GCrypt import GCrypt_Initialize 
+        from GCrypt import GCrypt 
+        from GCrypt import GHashPass
+        from GCrypt import toHex
         
-#         print (plaintext)
-#         Cript.printHex(plaintext)
-#         print ("seme")
-#         Cript.printHex(seme)
-#         print ("Testo Criptato")
-#         Cript.printHex(testoCriptato)
-#         print ("Testo decriptato")
-#         print(testoDecriptato)
-#         Cript.printHex(testoDecriptato)
-# 
-#         if (plaintext != testoDecriptato):
-#             print ("Errore")
+        m_pass = "pignbcolada"
+        hash = GHashPass(m_pass,len(m_pass))
         
-        self.hwg.debugTxt(testoCriptato + testoDecriptato)
+        print format(hash,'08x')
+        
+        GCrypt_Initialize(m_pass,len(m_pass)); # Initialize GCrypt
+        
+        in_file = open(self.lPath + "/page.html","r")
+        m_testo = in_file.read()
+        in_file.close()
+        
+        m_cript = GCrypt('c', m_testo, len(m_testo))
+        print (m_cript)
+        print (toHex(m_cript))
+        m_testo_decript = GCrypt('d', m_cript, len(m_cript))
+        print (m_testo_decript)
+        
+        if (m_testo != m_testo_decript):
+            print "Errore!"
+        
+        self.hwg.debugTxt(m_testo + "\n" + toHex(m_cript))
