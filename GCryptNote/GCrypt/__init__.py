@@ -322,7 +322,8 @@ PS = [0] * N
 T = [0] * 256
 IT = [0] * 256
 
-def GCrypt_Key(keyValue, n):
+def GCrypt_Key(keyValue):
+    n = len(keyValue)
     x = 0
     
     for i in range(N):
@@ -330,13 +331,14 @@ def GCrypt_Key(keyValue, n):
 
     return (x % 256)
 
-def GCrypt_Initialize(keyValue, length):
+def GCrypt_Initialize(keyValue):
+    length = len(keyValue)
 
     # Initialize PS "Key Vector"
     for i in range(N):
         PS[i] = baseKey[i]
     for i in range(N):
-        PS[i] = GCrypt_Key(keyValue, length)
+        PS[i] = GCrypt_Key(keyValue)
     
     # Initialize T and IT "Scramble Matrix and Inverse Scramble Matrix"
     for i in range(256):
@@ -353,7 +355,8 @@ def GCrypt_Initialize(keyValue, length):
                 IT[i]=j
 
 
-def GCrypt_encipher(PlainText, n):
+def GCrypt_encipher(PlainText):
+    n = len(PlainText)
     retVal = ""
     InitVal = PS[N-1]
     for i in range(n):
@@ -363,7 +366,8 @@ def GCrypt_encipher(PlainText, n):
         InitVal = x
     return retVal
 
-def GCrypt_decipher(CriptText, n):
+def GCrypt_decipher(CriptText):
+    n = len(CriptText)
     retVal = ""
     InitVal = PS[N-1]
     for i in range(n):
@@ -372,11 +376,12 @@ def GCrypt_decipher(CriptText, n):
         retVal += chr(x)
     return retVal
 
-def GCrypt(command, testo, n):
+def GCrypt(command, testo):
+    n = len(testo)
     if (command[0] == 'c'):
-        retVal = GCrypt_encipher (testo,n)
+        retVal = GCrypt_encipher (testo)
     if (command[0] == 'd'):
-        retVal = GCrypt_decipher (testo,n)
+        retVal = GCrypt_decipher (testo)
     return retVal
 
 """
@@ -399,7 +404,8 @@ def SetByte(iVal, iPos, cValue):
     iVal = iVal | (iTemp)
     return iVal
 
-def GHashPass(pasw, n):
+def GHashPass(pasw):
+    n = len(pasw)
     pH = 0
     for i in range(n):
         pH += ord(pasw[i])
@@ -413,4 +419,8 @@ def GHashPass(pasw, n):
     return (pH << 32) + pL
 
 def toHex(s):
-    return (':'.join(x.encode('hex') for x in s))
+    str = (':'.join(x.encode('hex') for x in s))
+    maxL = 63
+    t = len(str) / maxL
+    for i in range(t):
+        print (str[(t*maxL):((t+1)*maxL)])
